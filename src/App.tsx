@@ -24,7 +24,7 @@ export default function App () {
     return (
       <div className='p-6'>
         <h1 className='text-2xl font-bold mb-4'>HDS Data Model Browser</h1>
-        <div className='text-red-600'>Failed to load model: {error}</div>
+        <div className='text-destructive'>Failed to load model: {error}</div>
       </div>
     );
   }
@@ -33,16 +33,16 @@ export default function App () {
     return (
       <div className='p-6'>
         <h1 className='text-2xl font-bold mb-4'>HDS Data Model Browser</h1>
-        <div>Loading model…</div>
+        <div className='text-muted-foreground'>Loading model…</div>
       </div>
     );
   }
 
   return (
-    <div className='min-h-screen'>
-      <header className='border-b border-gray-200 dark:border-gray-700 px-6 py-3'>
+    <div className='min-h-screen bg-background text-foreground'>
+      <header className='border-b border-border px-6 py-3 bg-card'>
         <h1 className='text-xl font-bold'>HDS Data Model Browser</h1>
-        <div className='text-xs text-gray-500'>
+        <div className='text-xs text-muted-foreground'>
           {model.modelUrl} — {model.itemsDefs.getAll().length} items, {model.modelData.streams?.length ?? 0} root streams
         </div>
       </header>

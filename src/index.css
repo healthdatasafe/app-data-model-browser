@@ -2,11 +2,27 @@
 @import "hds-style/css/theme.css";
 @import "hds-style/css/palettes.css";
 
+/*
+ * Make Tailwind 4 also scan the published hds-forms-js bundle so the utility
+ * classes used inside ItemSearchPicker (flex, w-full, justify-between, dark:*,
+ * the count-badge bg, etc.) are actually generated. Without this, hds-forms-js
+ * components render with a broken layout because the classes are stripped.
+ */
+@source "../node_modules/hds-forms-js/js/hds-forms.mjs";
+
+/*
+ * Map semantic Tailwind color tokens to hds-style CSS variables so that
+ * Tailwind utility classes like bg-background, text-foreground, bg-card,
+ * border-border, text-muted-foreground, text-primary, etc. resolve to the
+ * active palette (palette-doctor / palette-patient / palette-dark).
+ */
 @theme {
   --color-background: var(--hds-background);
   --color-foreground: var(--hds-foreground);
   --color-card: var(--hds-card);
   --color-card-foreground: var(--hds-card-foreground);
+  --color-popover: var(--hds-card);
+  --color-popover-foreground: var(--hds-card-foreground);
   --color-primary: var(--hds-primary);
   --color-primary-foreground: var(--hds-primary-foreground);
   --color-secondary: var(--hds-secondary);
@@ -15,7 +31,11 @@
   --color-muted-foreground: var(--hds-muted-foreground);
   --color-accent: var(--hds-accent);
   --color-accent-foreground: var(--hds-accent-foreground);
+  --color-destructive: var(--hds-destructive);
+  --color-destructive-foreground: var(--hds-destructive-foreground);
   --color-border: var(--hds-border);
+  --color-input: var(--hds-input);
+  --color-ring: var(--hds-ring);
   --radius: 0.75rem;
 }
 
@@ -23,8 +43,12 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
   }
-  code, pre {
+  h1, h2, h3, h4 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  }
+  code, pre, .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 }

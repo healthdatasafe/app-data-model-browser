@@ -33,7 +33,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
 
   if (!itemKey) {
     return (
-      <div className='p-6 text-sm text-gray-500'>Select an item from the list to see its details.</div>
+      <div className='p-6 text-sm text-muted-foreground'>Select an item from the list to see its details.</div>
     );
   }
 
@@ -41,7 +41,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
   try {
     itemDef = model.itemsDefs.forKey(itemKey);
   } catch {
-    return <div className='p-6 text-sm text-red-600'>Item "{itemKey}" not found.</div>;
+    return <div className='p-6 text-sm text-destructive'>Item "{itemKey}" not found.</div>;
   }
   const data = itemDef.data;
   const languages = collectLanguages(data);
@@ -52,13 +52,13 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
       <div className='flex items-start justify-between gap-4 mb-3'>
         <div>
           <h2 className='text-xl font-bold font-mono'>{itemDef.key}</h2>
-          <div className='text-sm text-gray-500 mt-0.5'>v{data.version}</div>
+          <div className='text-sm text-muted-foreground mt-0.5'>v{data.version}</div>
         </div>
         {languages.length > 1 && (
           <select
             value={lang}
             onChange={e => setLang(e.target.value)}
-            className='rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800'
+            className='rounded border border-border bg-background text-foreground px-2 py-1 text-sm'
           >
             {languages.map(l => <option key={l} value={l}>{l}</option>)}
           </select>
@@ -70,7 +70,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
       </Section>
 
       <Section title='Description'>
-        <div className='text-sm text-gray-700 dark:text-gray-300'>{localized(data, 'description', lang) || <span className='italic text-gray-400'>(none)</span>}</div>
+        <div className='text-sm text-foreground/80'>{localized(data, 'description', lang) || <span className='italic text-muted-foreground'>(none)</span>}</div>
       </Section>
 
       <Section title='Stream'>
@@ -85,7 +85,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
       <Section title='Event types'>
         <div className='flex flex-wrap gap-1'>
           {eventTypes.map(et => (
-            <span key={et} className='rounded bg-gray-100 px-2 py-0.5 font-mono text-xs dark:bg-gray-800'>{et}</span>
+            <span key={et} className='rounded bg-muted text-muted-foreground px-2 py-0.5 font-mono text-xs'>{et}</span>
           ))}
         </div>
       </Section>
@@ -95,18 +95,18 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
       </Section>
 
       <Section title='Repeatable'>
-        <span className='text-sm'>{repeatableLabel(itemDef.repeatable)} <span className='ml-2 font-mono text-xs text-gray-500'>({itemDef.repeatable})</span></span>
+        <span className='text-sm'>{repeatableLabel(itemDef.repeatable)} <span className='ml-2 font-mono text-xs text-muted-foreground'>({itemDef.repeatable})</span></span>
       </Section>
 
       {itemDef.reminder && (
         <Section title='Reminder'>
-          <pre className='text-xs bg-gray-50 dark:bg-gray-800 rounded p-2 overflow-auto'>{JSON.stringify(itemDef.reminder, null, 2)}</pre>
+          <pre className='text-xs bg-muted text-foreground rounded p-2 overflow-auto'>{JSON.stringify(itemDef.reminder, null, 2)}</pre>
         </Section>
       )}
 
       {data.devNotes && (
         <Section title='Dev notes'>
-          <div className='whitespace-pre-wrap text-xs italic text-gray-600 dark:text-gray-400'>{data.devNotes}</div>
+          <div className='whitespace-pre-wrap text-xs italic text-muted-foreground'>{data.devNotes}</div>
         </Section>
       )}
 
@@ -115,7 +115,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
           <ul className='text-sm'>
             {data.options.map((opt: any) => (
               <li key={String(opt.value)} className='font-mono'>
-                {String(opt.value)}{opt.label && <span className='ml-2 font-sans not-italic text-gray-600 dark:text-gray-400'>{localized(opt, 'label', lang)}</span>}
+                {String(opt.value)}{opt.label && <span className='ml-2 font-sans not-italic text-muted-foreground'>{localized(opt, 'label', lang)}</span>}
               </li>
             ))}
           </ul>
@@ -127,7 +127,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
           <ul className='text-sm'>
             {data.variations.eventType.options.map((opt: any) => (
               <li key={opt.value} className='font-mono'>
-                {opt.value}{opt.label && <span className='ml-2 font-sans not-italic text-gray-600 dark:text-gray-400'>{localized(opt, 'label', lang)}</span>}
+                {opt.value}{opt.label && <span className='ml-2 font-sans not-italic text-muted-foreground'>{localized(opt, 'label', lang)}</span>}
               </li>
             ))}
           </ul>
@@ -142,7 +142,7 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
 function Section ({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className='mb-3'>
-      <div className='text-xs font-semibold uppercase tracking-wide text-gray-500 mb-0.5'>{title}</div>
+      <div className='text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-0.5'>{title}</div>
       {children}
     </div>
   );

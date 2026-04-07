@@ -1,6 +1,7 @@
 import { ItemSearchPicker } from 'hds-forms-js';
 import type { HDSModel } from 'hds-lib';
 import { ItemDetail } from './ItemDetail';
+import { SplitPane } from './SplitPane';
 
 interface ItemsTabProps {
   model: HDSModel;
@@ -11,18 +12,27 @@ interface ItemsTabProps {
 
 export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream }: ItemsTabProps) {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-[20rem_1fr] gap-4 p-4'>
-      <div>
-        <ItemSearchPicker
-          selectedKey={selectedKey ?? undefined}
-          onSelect={onSelectKey}
-          placeholder='Search items…'
-        />
-        <div className='mt-2 text-xs text-gray-500'>{model.itemsDefs.getAll().length} items</div>
-      </div>
-      <div className='border border-gray-200 dark:border-gray-700 rounded-lg min-h-[24rem]'>
-        <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} />
-      </div>
-    </div>
+    <SplitPane
+      storageKey='items'
+      defaultWidth={320}
+      minWidth={220}
+      maxWidth={640}
+      className='p-4'
+      left={
+        <div className='pr-2'>
+          <ItemSearchPicker
+            selectedKey={selectedKey ?? undefined}
+            onSelect={onSelectKey}
+            placeholder='Search items…'
+          />
+          <div className='mt-2 text-xs text-muted-foreground'>{model.itemsDefs.getAll().length} items</div>
+        </div>
+      }
+      right={
+        <div className='ml-2 border border-border bg-card text-card-foreground rounded-lg min-h-[24rem]'>
+          <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} />
+        </div>
+      }
+    />
   );
 }

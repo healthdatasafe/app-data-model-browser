@@ -38,20 +38,20 @@ function StreamNodeRow ({ node, depth, selectedId, onSelect }: RowProps) {
     <li>
       <div
         className={`flex items-center gap-1 rounded px-2 py-1 cursor-pointer ${
-          isSelected ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+          isSelected ? 'bg-accent text-accent-foreground font-medium' : 'hover:bg-muted'
         }`}
         style={{ paddingLeft: `${0.5 + depth * 1}rem` }}
       >
         <button
           onClick={(e) => { e.stopPropagation(); setOpen(o => !o); }}
-          className='w-4 text-gray-400'
+          className='w-4 text-muted-foreground'
           aria-label={open ? 'Collapse' : 'Expand'}
         >
           {hasChildren ? (open ? '\u25BE' : '\u25B8') : '\u00B7'}
         </button>
         <button onClick={() => onSelect(node.id)} className='flex-1 text-left'>
           <span>{node.name}</span>
-          <span className='ml-2 font-mono text-xs text-gray-500'>{node.id}</span>
+          <span className='ml-2 font-mono text-xs text-muted-foreground'>{node.id}</span>
         </button>
       </div>
       {open && hasChildren && (
