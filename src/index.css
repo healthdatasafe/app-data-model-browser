@@ -52,3 +52,31 @@
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 }
+
+/*
+ * hds-forms-js's ItemSearchPicker uses Tailwind shade tokens (primary-50,
+ * primary-300, primary-700, primary-900) for its selected/focus states, but
+ * we only define a single `--color-primary`. Without these overrides the
+ * selected row has near-invisible contrast. Map them all to readable
+ * combinations driven by `--hds-primary`.
+ */
+.bg-primary-50,
+.bg-primary-900,
+.dark .dark\:bg-primary-900 {
+  background-color: color-mix(in srgb, var(--hds-primary) 22%, transparent) !important;
+}
+.text-primary-700,
+.text-primary-300,
+.dark .dark\:text-primary-300 {
+  color: var(--hds-primary) !important;
+}
+/* Picker focus ring */
+.focus\:border-primary-500:focus {
+  border-color: var(--hds-primary) !important;
+}
+
+/* Logo: show the right variant based on active palette */
+.logo-light { display: block; }
+.logo-dark { display: none; }
+.palette-dark .logo-light { display: none; }
+.palette-dark .logo-dark { display: block; }

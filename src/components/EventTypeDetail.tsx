@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react';
 import type { HDSModel } from 'hds-lib';
 import { RawJson } from './RawJson';
+import { SourcePill } from './SourcePill';
+import type { EventTypeSource } from '../services/hdsLibService';
 
 interface EventTypeDetailProps {
   model: HDSModel;
   eventType: string | null;
   onOpenItem?: (key: string) => void;
+  sources: Map<string, EventTypeSource>;
 }
 
 function localized (data: any, lang: string): string {
@@ -23,7 +26,7 @@ function collectLanguages (extras: any): string[] {
   return Array.from(langs).sort();
 }
 
-export function EventTypeDetail ({ model, eventType, onOpenItem }: EventTypeDetailProps) {
+export function EventTypeDetail ({ model, eventType, onOpenItem, sources }: EventTypeDetailProps) {
   const [lang, setLang] = useState('en');
 
   // All items that reference this eventType — computed once per (model, et).
@@ -57,7 +60,10 @@ export function EventTypeDetail ({ model, eventType, onOpenItem }: EventTypeDeta
     <div className='p-6 overflow-y-auto'>
       <div className='flex items-start justify-between gap-4 mb-3'>
         <div className='min-w-0'>
-          <h2 className='text-xl font-bold font-mono break-all'>{eventType}</h2>
+          <div className='flex items-center gap-2'>
+            <h2 className='text-xl font-bold font-mono break-all'>{eventType}</h2>
+            <SourcePill source={sources.get(eventType)} />
+          </div>
           {extras?.name && (
             <div className='text-sm text-muted-foreground mt-0.5'>{localized(extras.name, lang)}</div>
           )}

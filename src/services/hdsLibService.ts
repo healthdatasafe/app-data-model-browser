@@ -31,3 +31,37 @@ export function getModel (): HDSModel {
   if (model == null) throw new Error('Call ensureModel() first to initialize the HDSModel singleton.');
   return model;
 }
+
+/** Where each eventType key originates: 'pryv' (legacy) or 'hds' (new). */
+export type EventTypeSource = 'hds' | 'pryv';
+
+const EVENT_TYPES_LEGACY_URL = 'https://raw.githubusercontent.com/healthdatasafe/data-model/main/definitions/eventTypes/eventTypes-legacy.json';
+const EVENT_TYPES_HDS_URL = 'https://raw.githubusercontent.com/healthdatasafe/data-model/main/definitions/eventTypes/eventTypes-hds.json';
+
+let eventTypeSourcesPromise: Promise<Map<string, EventTypeSource>> | null = null;
+
+/**
+ * Fetch the two raw eventType source files from data-model on GitHub and
+ * build a key→source map. The merged `pack.json` doesn't preserve provenance,
+ * so the only way to know which keys are legacy ('pryv') vs new ('hds') is to
+ * read the original files. Cached after first call.
+ */
+export async function loadEventTypeSources (): Promise<Map<string, EventTypeSource>> {
+  if (eventTypeSourcesPromise) return eventTypeSourcesPromise;
+  eventTypeSourcesPromise = (async () => {
+    const map = new Map<string, EventTypeSource>();
+    try {
+      const [legacy, hds] = await Promise.all([
+        fetch(EVENT_TYPES_LEGACY_URL).then(r => r.json()),
+        fetch(EVENT_TYPES_HDS_URL).then(r => r.json())
+      ]);
+      for (const k of Object.keys(legacy?.types ?? {})) map.set(k, 'pryv');
+      for (const k of Object.keys(hds?.types ?? {})) map.set(k, 'hds'); // hds wins on collision
+    } catch (e) {
+      // Soft fail — UI just won't show pills
+      console.warn('Could not load eventType source files:', e);
+    }
+    return map;
+  })();
+  return eventTypeSourcesPromise;
+}

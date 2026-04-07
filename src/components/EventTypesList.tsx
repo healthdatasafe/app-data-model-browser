@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react';
+import type { EventTypeSource } from '../services/hdsLibService';
+import { SourcePill } from './SourcePill';
 
 interface EventTypesListProps {
   eventTypes: string[];
   selectedKey: string | null;
   onSelect: (key: string) => void;
+  sources: Map<string, EventTypeSource>;
 }
 
 /** Group key — everything before the first '/'. Falls back to '(other)'. */
@@ -17,7 +20,7 @@ function groupOf (key: string): string {
  * but built locally because we don't need the full ItemSearchPicker's
  * model-aware features.
  */
-export function EventTypesList ({ eventTypes, selectedKey, onSelect }: EventTypesListProps) {
+export function EventTypesList ({ eventTypes, selectedKey, onSelect, sources }: EventTypesListProps) {
   const [search, setSearch] = useState('');
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
 
@@ -81,13 +84,14 @@ export function EventTypesList ({ eventTypes, selectedKey, onSelect }: EventType
                       <button
                         key={et}
                         onClick={() => onSelect(et)}
-                        className={`block w-full rounded px-2 py-1 text-left text-xs font-mono ${
+                        className={`flex w-full items-center justify-between gap-2 rounded px-2 py-1 text-left text-xs font-mono ${
                           isSelected
                             ? 'bg-accent text-accent-foreground font-medium'
                             : 'text-foreground/80 hover:bg-muted'
                         }`}
                       >
-                        {et.includes('/') ? et.slice(et.indexOf('/') + 1) : et}
+                        <span className='truncate'>{et.includes('/') ? et.slice(et.indexOf('/') + 1) : et}</span>
+                        <SourcePill source={sources.get(et)} />
                       </button>
                     );
                   })}

@@ -2,6 +2,7 @@ import { ItemSearchPicker } from 'hds-forms-js';
 import type { HDSModel } from 'hds-lib';
 import { ItemDetail } from './ItemDetail';
 import { SplitPane } from './SplitPane';
+import type { EventTypeSource } from '../services/hdsLibService';
 
 interface ItemsTabProps {
   model: HDSModel;
@@ -9,9 +10,10 @@ interface ItemsTabProps {
   onSelectKey: (key: string) => void;
   onSelectStream?: (streamId: string) => void;
   onSelectEventType?: (eventType: string) => void;
+  eventTypeSources: Map<string, EventTypeSource>;
 }
 
-export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onSelectEventType }: ItemsTabProps) {
+export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onSelectEventType, eventTypeSources }: ItemsTabProps) {
   return (
     <SplitPane
       storageKey='items'
@@ -31,7 +33,7 @@ export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onS
       }
       right={
         <div className='ml-2 border border-border bg-card text-card-foreground rounded-lg min-h-[24rem]'>
-          <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} onSelectEventType={onSelectEventType} />
+          <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} onSelectEventType={onSelectEventType} eventTypeSources={eventTypeSources} />
         </div>
       }
     />
