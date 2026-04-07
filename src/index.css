@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@import "hds-style/css/theme.css";
+@import "hds-style/css/palettes.css";
+
+@theme {
+  --color-background: var(--hds-background);
+  --color-foreground: var(--hds-foreground);
+  --color-card: var(--hds-card);
+  --color-card-foreground: var(--hds-card-foreground);
+  --color-primary: var(--hds-primary);
+  --color-primary-foreground: var(--hds-primary-foreground);
+  --color-secondary: var(--hds-secondary);
+  --color-secondary-foreground: var(--hds-secondary-foreground);
+  --color-muted: var(--hds-muted);
+  --color-muted-foreground: var(--hds-muted-foreground);
+  --color-accent: var(--hds-accent);
+  --color-accent-foreground: var(--hds-accent-foreground);
+  --color-border: var(--hds-border);
+  --radius: 0.75rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  code, pre {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+}
