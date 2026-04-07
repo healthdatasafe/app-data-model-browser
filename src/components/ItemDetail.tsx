@@ -7,6 +7,7 @@ interface ItemDetailProps {
   model: HDSModel;
   itemKey: string | null;
   onSelectStream?: (streamId: string) => void;
+  onSelectEventType?: (eventType: string) => void;
 }
 
 /** Pull every language present across the item's localized fields. */
@@ -28,7 +29,7 @@ function localized (data: any, field: string, lang: string): string {
   return '';
 }
 
-export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps) {
+export function ItemDetail ({ model, itemKey, onSelectStream, onSelectEventType }: ItemDetailProps) {
   const [lang, setLang] = useState('en');
 
   if (!itemKey) {
@@ -85,7 +86,19 @@ export function ItemDetail ({ model, itemKey, onSelectStream }: ItemDetailProps)
       <Section title='Event types'>
         <div className='flex flex-wrap gap-1'>
           {eventTypes.map(et => (
-            <span key={et} className='rounded bg-muted text-muted-foreground px-2 py-0.5 font-mono text-xs'>{et}</span>
+            onSelectEventType
+              ? (
+                <button
+                  key={et}
+                  onClick={() => onSelectEventType(et)}
+                  className='rounded bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground px-2 py-0.5 font-mono text-xs'
+                >
+                  {et}
+                </button>
+                )
+              : (
+                <span key={et} className='rounded bg-muted text-muted-foreground px-2 py-0.5 font-mono text-xs'>{et}</span>
+                )
           ))}
         </div>
       </Section>

@@ -8,9 +8,10 @@ interface ItemsTabProps {
   selectedKey: string | null;
   onSelectKey: (key: string) => void;
   onSelectStream?: (streamId: string) => void;
+  onSelectEventType?: (eventType: string) => void;
 }
 
-export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream }: ItemsTabProps) {
+export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onSelectEventType }: ItemsTabProps) {
   return (
     <SplitPane
       storageKey='items'
@@ -30,7 +31,7 @@ export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream }: I
       }
       right={
         <div className='ml-2 border border-border bg-card text-card-foreground rounded-lg min-h-[24rem]'>
-          <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} />
+          <ItemDetail model={model} itemKey={selectedKey} onSelectStream={onSelectStream} onSelectEventType={onSelectEventType} />
         </div>
       }
     />

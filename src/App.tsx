@@ -4,8 +4,9 @@ import { ensureModel } from './services/hdsLibService';
 import { Tabs } from './components/Tabs';
 import { ItemsTab } from './components/ItemsTab';
 import { StreamsTab } from './components/StreamsTab';
+import { EventTypesTab } from './components/EventTypesTab';
 
-type TabId = 'items' | 'streams';
+type TabId = 'items' | 'streams' | 'eventTypes';
 
 export default function App () {
   const [model, setModel] = useState<HDSModel | null>(null);
@@ -13,6 +14,7 @@ export default function App () {
   const [tab, setTab] = useState<TabId>('items');
   const [selectedItemKey, setSelectedItemKey] = useState<string | null>(null);
   const [selectedStreamId, setSelectedStreamId] = useState<string | null>(null);
+  const [selectedEventType, setSelectedEventType] = useState<string | null>(null);
 
   useEffect(() => {
     ensureModel()
@@ -38,18 +40,34 @@ export default function App () {
     );
   }
 
+  const eventTypesCount = Object.keys(model.modelData.eventTypes?.types ?? {}).length;
+
+  function openItem (key: string) {
+    setSelectedItemKey(key);
+    setTab('items');
+  }
+  function openStream (id: string) {
+    setSelectedStreamId(id);
+    setTab('streams');
+  }
+  function openEventType (et: string) {
+    setSelectedEventType(et);
+    setTab('eventTypes');
+  }
+
   return (
     <div className='min-h-screen bg-background text-foreground'>
       <header className='border-b border-border px-6 py-3 bg-card'>
         <h1 className='text-xl font-bold'>HDS Data Model Browser</h1>
         <div className='text-xs text-muted-foreground'>
-          {model.modelUrl} — {model.itemsDefs.getAll().length} items, {model.modelData.streams?.length ?? 0} root streams
+          {model.modelUrl} — {model.itemsDefs.getAll().length} items, {model.modelData.streams?.length ?? 0} root streams, {eventTypesCount} eventTypes
         </div>
       </header>
       <Tabs<TabId>
         tabs={[
           { id: 'items', label: 'Items' },
-          { id: 'streams', label: 'Streams' }
+          { id: 'streams', label: 'Streams' },
+          { id: 'eventTypes', label: 'Event Types' }
         ]}
         active={tab}
         onChange={setTab}
@@ -59,10 +77,8 @@ export default function App () {
           model={model}
           selectedKey={selectedItemKey}
           onSelectKey={setSelectedItemKey}
-          onSelectStream={(streamId) => {
-            setSelectedStreamId(streamId);
-            setTab('streams');
-          }}
+          onSelectStream={openStream}
+          onSelectEventType={openEventType}
         />
       )}
       {tab === 'streams' && (
@@ -70,10 +86,15 @@ export default function App () {
           model={model}
           selectedId={selectedStreamId}
           onSelectId={setSelectedStreamId}
-          onOpenItem={(key) => {
-            setSelectedItemKey(key);
-            setTab('items');
-          }}
+          onOpenItem={openItem}
+        />
+      )}
+      {tab === 'eventTypes' && (
+        <EventTypesTab
+          model={model}
+          selectedKey={selectedEventType}
+          onSelectKey={setSelectedEventType}
+          onOpenItem={openItem}
         />
       )}
     </div>
