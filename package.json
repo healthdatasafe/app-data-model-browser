@@ -1,0 +1,52 @@
+{
+  "name": "app-data-model-browser",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:raw": "vite --mode raw",
+    "build": "vite build",
+    "preview": "vite preview",
+    "setup": "sh scripts/setup.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:change": "eslint $(git diff --name-only HEAD | grep -E '\\.(ts|tsx)$' | xargs)",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hds-forms-js": "github:healthdatasafe/hds-forms-js",
+    "hds-lib": "git+https://github.com/healthdatasafe/hds-lib-js.git",
+    "hds-style": "git+https://github.com/healthdatasafe/style-package.git",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^22.5.5",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "jsdom": "^28.0.0",
+    "neostandard": "^0.12.2",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1",
+    "vite-plugin-backloop.dev": "^1.0.4",
+    "vitest": "^4.0.18"
+  }
+}

@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import "hds-style/css/theme.css";
+@import "hds-style/css/palettes.css";
+
+/*
+ * Make Tailwind 4 also scan the published hds-forms-js bundle so the utility
+ * classes used inside ItemSearchPicker (flex, w-full, justify-between, dark:*,
+ * the count-badge bg, etc.) are actually generated. Without this, hds-forms-js
+ * components render with a broken layout because the classes are stripped.
+ */
+@source "../node_modules/hds-forms-js/js/hds-forms.mjs";
+
+/*
+ * Map semantic Tailwind color tokens to hds-style CSS variables so that
+ * Tailwind utility classes like bg-background, text-foreground, bg-card,
+ * border-border, text-muted-foreground, text-primary, etc. resolve to the
+ * active palette (palette-doctor / palette-patient / palette-dark).
+ */
+@theme {
+  --color-background: var(--hds-background);
+  --color-foreground: var(--hds-foreground);
+  --color-card: var(--hds-card);
+  --color-card-foreground: var(--hds-card-foreground);
+  --color-popover: var(--hds-card);
+  --color-popover-foreground: var(--hds-card-foreground);
+  --color-primary: var(--hds-primary);
+  --color-primary-foreground: var(--hds-primary-foreground);
+  --color-secondary: var(--hds-secondary);
+  --color-secondary-foreground: var(--hds-secondary-foreground);
+  --color-muted: var(--hds-muted);
+  --color-muted-foreground: var(--hds-muted-foreground);
+  --color-accent: var(--hds-accent);
+  --color-accent-foreground: var(--hds-accent-foreground);
+  --color-destructive: var(--hds-destructive);
+  --color-destructive-foreground: var(--hds-destructive-foreground);
+  --color-border: var(--hds-border);
+  --color-input: var(--hds-input);
+  --color-ring: var(--hds-ring);
+  --radius: 0.75rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  }
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+}
+
+/*
+ * hds-forms-js's ItemSearchPicker uses Tailwind shade tokens (primary-50,
+ * primary-300, primary-700, primary-900) for its selected/focus states, but
+ * we only define a single `--color-primary`. Without these overrides the
+ * selected row has near-invisible contrast. Map them all to readable
+ * combinations driven by `--hds-primary`.
+ */
+.bg-primary-50,
+.bg-primary-900,
+.dark .dark\:bg-primary-900 {
+  background-color: color-mix(in srgb, var(--hds-primary) 22%, transparent) !important;
+}
+.text-primary-700,
+.text-primary-300,
+.dark .dark\:text-primary-300 {
+  color: var(--hds-primary) !important;
+}
+/* Picker focus ring */
+.focus\:border-primary-500:focus {
+  border-color: var(--hds-primary) !important;
+}
+
+/* Logo: show the right variant based on active palette */
+.logo-light { display: block; }
+.logo-dark { display: none; }
+.palette-dark .logo-light { display: none; }
+.palette-dark .logo-dark { display: block; }
