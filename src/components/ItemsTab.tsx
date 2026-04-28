@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ItemSearchPicker } from 'hds-forms-js';
 import type { HDSModel } from 'hds-lib';
 import { ItemDetail } from './ItemDetail';
@@ -14,6 +15,10 @@ interface ItemsTabProps {
 }
 
 export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onSelectEventType, eventTypeSources }: ItemsTabProps) {
+  const [showDeprecated, setShowDeprecated] = useState(false);
+  const activeCount = model.itemsDefs.getAllActive().length;
+  const totalCount = model.itemsDefs.getAll().length;
+  const deprecatedCount = totalCount - activeCount;
   return (
     <SplitPane
       storageKey='items'
@@ -27,8 +32,21 @@ export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onS
             selectedKey={selectedKey ?? undefined}
             onSelect={onSelectKey}
             placeholder='Search items…'
+            includeDeprecated={showDeprecated}
           />
-          <div className='mt-2 text-xs text-muted-foreground'>{model.itemsDefs.getAll().length} items</div>
+          <div className='mt-2 flex items-center justify-between text-xs text-muted-foreground'>
+            <span>{showDeprecated ? totalCount : activeCount} items</span>
+            {deprecatedCount > 0 && (
+              <label className='flex items-center gap-1 cursor-pointer'>
+                <input
+                  type='checkbox'
+                  checked={showDeprecated}
+                  onChange={e => setShowDeprecated(e.target.checked)}
+                />
+                Show deprecated ({deprecatedCount})
+              </label>
+            )}
+          </div>
         </div>
       }
       right={

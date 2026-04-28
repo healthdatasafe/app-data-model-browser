@@ -71,7 +71,7 @@ export default function App () {
         <div className='min-w-0'>
           <h1 className='text-xl font-bold leading-tight'>HDS — Data Model</h1>
           <div className='text-xs text-muted-foreground truncate'>
-            {model.modelUrl} — {model.itemsDefs.getAll().length} items, {model.modelData.streams?.length ?? 0} root streams, {eventTypesCount} eventTypes
+            {model.modelUrl} — {model.itemsDefs.getAllActive().length} items, {model.modelData.streams?.length ?? 0} root streams, {eventTypesCount} eventTypes
           </div>
         </div>
       </header>

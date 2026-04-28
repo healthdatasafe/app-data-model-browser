@@ -1,7 +1,7 @@
 {
   "name": "app-data-model-browser",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "engines": {
     "node": ">=24"
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "hds-forms-js": "github:healthdatasafe/hds-forms-js",
-    "hds-lib": "git+https://github.com/healthdatasafe/hds-lib-js.git",
+    "hds-lib": "github:healthdatasafe/hds-lib-js",
     "hds-style": "git+https://github.com/healthdatasafe/style-package.git",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

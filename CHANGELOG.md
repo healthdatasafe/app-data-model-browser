@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.0] - 2026-04-28
+
+### Added — deprecated-itemDef awareness (Plan 50 Phase 4)
+- **Items tab default listing now hides deprecated items.** A "Show deprecated (N)" checkbox appears below the picker when at least one deprecated item exists; toggling it switches the picker to the full list via the new `ItemSearchPicker.includeDeprecated` prop (introduced in `hds-forms-js` 0.8.1).
+- **Item detail pane** shows a `deprecated` badge next to the item key when the selected item has `isDeprecated === true`.
+- **Header summary count** uses `getAllActive().length` so the visible count matches the default listing.
+
+Requires `hds-lib` ≥ 0.7.2 and `hds-forms-js` ≥ 0.8.1. Contract documented in `data-model/AGENTS.md § "deprecated: true on items"`.
+
 ## [0.1.0] - 2026-04-07
 
 ### Added

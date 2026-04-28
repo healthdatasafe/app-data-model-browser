@@ -55,7 +55,14 @@ export function ItemDetail ({ model, itemKey, onSelectStream, onSelectEventType,
     <div className='p-6 overflow-y-auto'>
       <div className='flex items-start justify-between gap-4 mb-3'>
         <div>
-          <h2 className='text-xl font-bold font-mono'>{itemDef.key}</h2>
+          <h2 className='text-xl font-bold font-mono'>
+            {itemDef.key}
+            {itemDef.isDeprecated && (
+              <span className='ml-2 align-middle inline-block rounded bg-yellow-100 px-2 py-0.5 text-xs font-semibold text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'>
+                deprecated
+              </span>
+            )}
+          </h2>
           <div className='text-sm text-muted-foreground mt-0.5'>v{data.version}</div>
         </div>
         {languages.length > 1 && (
