@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.1] - 2026-06-10
+
+### Added
+- New Relic Browser instrumentation: entity `hds-static-app-data-model-browser`, build-time snippet injection via `newrelicBrowser()` vite plugin. (BUGS B-2026-05-29-2)
+
 ## [0.2.0] - 2026-04-28
 
 ### Added — deprecated-itemDef awareness (Plan 50 Phase 4)

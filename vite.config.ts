@@ -1,8 +1,34 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import backloop from 'vite-plugin-backloop.dev';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Inject the New Relic Browser agent snippet at build time (skipped in dev).
+// Same pattern as hds-webapp/vite.config.ts. Single environment — one
+// snippet file (entity hds-static-app-data-model-browser).
+function newrelicBrowser (): Plugin {
+  return {
+    name: 'newrelic-browser',
+    transformIndexHtml: {
+      order: 'post',
+      handler (html, ctx) {
+        if (ctx.server) return html;
+        const snippetPath = path.resolve(__dirname, 'newrelic-snippet.html');
+        if (!fs.existsSync(snippetPath)) {
+          console.warn('[newrelic-browser] newrelic-snippet.html not found — skipping injection');
+          return html;
+        }
+        const snippet = fs.readFileSync(snippetPath, 'utf-8').trim();
+        return html.replace('</head>', snippet + '\n  </head>');
+      }
+    }
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -16,7 +42,8 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      tailwindcss()
+      tailwindcss(),
+      newrelicBrowser()
     ],
     resolve: {
       alias: {
