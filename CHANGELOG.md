@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+- Removed the browser-monitoring agent. Third-party code running in a patient's
+  browser cannot be allow-listed, so it is removed rather than configured
+  (HDS plan 88). Detection is now external (synthetic and certificate checks)
+  plus the backend signals behind this app; real-user JS error visibility is
+  deliberately given up.
+
 ## [0.2.1] - 2026-06-10
 
 ### Added
