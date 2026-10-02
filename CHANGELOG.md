@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- hds-lib 2.8.0 (pryv 3.14.2: API error messages no longer carry the call's params; redirect sign-in hand-off and `auto#` on mobile fixed); hds-forms-js 0.20.0.
+
 ### Fixed
 
 - **"Show deprecated (N)" counts deprecated items only.** It was `getAll() - getAllActive()`, which
