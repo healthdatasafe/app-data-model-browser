@@ -10,6 +10,11 @@
 
 - **"Show deprecated (N)" counts deprecated items only.** It was `getAll() - getAllActive()`, which
   would have counted the new `type: system` items (hds-lib 2.7.0, data-model 3.13.0) as deprecated.
+- **The Items tab renders again** (2026-10-02): the change above dropped `activeCount` / `totalCount`, which
+  the item count still used, so the tab threw `activeCount is not defined` once deployed.
+- **`npm run typecheck` checks the code.** It ran `tsc --noEmit` on the root `tsconfig.json`, which holds only
+  project references and no files, so it checked nothing (how the error above shipped). It now checks
+  `tsconfig.app.json` and `tsconfig.node.json`; `src/vite-env.d.ts` adds the Vite client types it needed.
 
 ### Changed
 
