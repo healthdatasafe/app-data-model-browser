@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- **"Show deprecated (N)" counts deprecated items only.** It was `getAll() - getAllActive()`, which
+  would have counted the new `type: system` items (hds-lib 2.7.0, data-model 3.13.0) as deprecated.
+
 ### Changed
 
 - **`backloop.dev` now installs from GitHub instead of npm** (2026-09-07). The service stopped

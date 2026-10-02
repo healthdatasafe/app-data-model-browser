@@ -16,9 +16,9 @@ interface ItemsTabProps {
 
 export function ItemsTab ({ model, selectedKey, onSelectKey, onSelectStream, onSelectEventType, eventTypeSources }: ItemsTabProps) {
   const [showDeprecated, setShowDeprecated] = useState(false);
-  const activeCount = model.itemsDefs.getAllActive().length;
-  const totalCount = model.itemsDefs.getAll().length;
-  const deprecatedCount = totalCount - activeCount;
+  // Counted directly: getAllActive() also leaves out system items, so
+  // total - active would count them as deprecated.
+  const deprecatedCount = model.itemsDefs.getAll().filter((itemDef) => itemDef.isDeprecated).length;
   return (
     <SplitPane
       storageKey='items'
