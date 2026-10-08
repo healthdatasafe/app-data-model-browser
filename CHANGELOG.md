@@ -8,6 +8,10 @@
 
 ### Fixed
 
+- **Tests and builds no longer fetch a backloop.dev certificate** (2026-10-09, B-2026-10-08-10): the vite plugin is
+  loaded only for the dev server (`command === 'serve'`, not under vitest, not `raw`), so CI does not depend on
+  reaching backloop.dev.
+
 - **"Show deprecated (N)" counts deprecated items only.** It was `getAll() - getAllActive()`, which
   would have counted the new `type: system` items (hds-lib 2.7.0, data-model 3.13.0) as deprecated.
 - **The Items tab renders again** (2026-10-02): the change above dropped `activeCount` / `totalCount`, which

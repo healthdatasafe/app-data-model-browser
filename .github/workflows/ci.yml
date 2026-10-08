@@ -2,9 +2,9 @@ name: App Data Model Browser CI
 # Every dependency resolves without credentials (style-package went public on 2026-10-08), so
 # no HDS_CI_TOKEN guard. All five steps below (npm ci, lint, typecheck, test, build) were run
 # on a clean clone with an empty HOME, no SSH key or agent and no git config before this
-# workflow was added; none is left out. Network note: backloop.dev's postinstall and the
-# vitest run (the vite plugin's config hook fires in serve mode) fetch the public
-# backloop.dev certificate from https://backloop.dev/public/.
+# workflow was added; none is left out. Network note: backloop.dev's postinstall may fetch the
+# public certificate from https://backloop.dev/public/; the vite plugin no longer does (it is only
+# loaded for the dev server, not for vitest or builds: B-2026-10-08-10).
 
 on:
   pull_request:

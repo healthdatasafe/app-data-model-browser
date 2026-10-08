@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // certificate checks — plus the backend signals behind it.
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const config: any = {
     // Relative base so the same build works at GH-Pages root, sub-path, or under a custom domain.
     base: './',
@@ -38,9 +38,11 @@ export default defineConfig(({ mode }) => {
       exclude: ['hds-forms-js']
     }
   };
-  // Enable backloop.dev (HTTPS + proper hostname) by default in dev mode.
-  // Use `npm run dev:raw` to bypass it (plain http://localhost).
-  if (mode !== 'raw') {
+  // Enable backloop.dev (HTTPS + proper hostname) for the dev server only.
+  // Use `npm run dev:raw` to bypass it (plain http://localhost). Builds and vitest (which runs in
+  // serve mode) skip it: they need no certificate, and loading the plugin there made tests and CI
+  // depend on reaching backloop.dev (B-2026-10-08-10).
+  if (command === 'serve' && !process.env.VITEST && mode !== 'raw') {
     config.plugins.push(backloop('app-data-model-browser'));
   }
   return {
