@@ -8,7 +8,7 @@
 
 ### Fixed
 
-- **Tests and builds no longer fetch a backloop.dev certificate** (2026-10-09, B-2026-10-08-10): the vite plugin is
+- **Tests and builds no longer fetch a backloop.dev certificate** (2026-10-08, B-2026-10-08-10): the vite plugin is
   loaded only for the dev server (`command === 'serve'`, not under vitest, not `raw`), so CI does not depend on
   reaching backloop.dev.
 
