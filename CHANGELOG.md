@@ -2,9 +2,9 @@
 
 ## [Unreleased]
 
-### Changed
+### Added
 
-- hds-lib 2.8.0 (pryv 3.14.2: API error messages no longer carry the call's params; redirect sign-in hand-off and `auto#` on mobile fixed); hds-forms-js 0.20.0.
+- **CI** (2026-10-08): GitHub Actions workflow `.github/workflows/ci.yml` runs `npm ci`, lint, typecheck, test and build on Node 24.x for every pull request and every push to `main`. All five were run on a clean clone with no credentials first; no gate is left out.
 
 ### Fixed
 
@@ -18,6 +18,7 @@
 
 ### Changed
 
+- hds-lib 2.8.0 (pryv 3.14.2: API error messages no longer carry the call's params; redirect sign-in hand-off and `auto#` on mobile fixed); hds-forms-js 0.20.0.
 - **`backloop.dev` now installs from GitHub instead of npm** (2026-09-07). The service stopped
   being public on 2026-09-04: a certificate authority must revoke any certificate whose private
   key is published, and both did. The two packages also moved into repositories of their own, so
