@@ -8,6 +8,11 @@
 
 ### Fixed
 
+- **A deploy waits until the site serves it** (2026-11-08, B-2026-11-06-12): `scripts/deploy.sh` used to report success once
+  the Pages branch was pushed, even when GitHub's own Pages deploy then failed and the previous build kept serving.
+  It now runs `scripts/verify-pages.sh` (same helper as hds-webapp), which waits until the site's `version.json`
+  names the commit just built, re-runs a failed `pages-build-deployment` run once, and fails (non-zero, with the
+  run link) otherwise. `VERIFY_PAGES_TIMEOUT` (default 900 s).
 - **Tests and builds no longer fetch a backloop.dev certificate** (2026-10-08, B-2026-10-08-10): the vite plugin is
   loaded only for the dev server (`command === 'serve'`, not under vitest, not `raw`), so CI does not depend on
   reaching backloop.dev.
