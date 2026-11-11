@@ -51,5 +51,11 @@
   },
   "overrides": {
     "backloop.dev": "git+https://github.com/perki/backloop.dev-node.git#v5.2.1"
+  },
+  "allowScripts": {
+    "github:healthdatasafe/hds-feminine-cycle-ui": true,
+    "github:healthdatasafe/hds-forms-js": true,
+    "github:healthdatasafe/hds-lib-js": true,
+    "github:perki/backloop.dev-node": true
   }
 }
