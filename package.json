@@ -23,7 +23,7 @@
   "dependencies": {
     "hds-forms-js": "github:healthdatasafe/hds-forms-js",
     "hds-lib": "github:healthdatasafe/hds-lib-js",
-    "hds-style": "git+https://github.com/healthdatasafe/style-package.git",
+    "hds-style": "github:healthdatasafe/style-package#0.2.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
