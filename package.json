@@ -1,7 +1,7 @@
 {
   "name": "app-data-model-browser",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "engines": {
     "node": ">=24"
@@ -21,8 +21,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
-    "hds-forms-js": "github:healthdatasafe/hds-forms-js",
-    "hds-lib": "github:healthdatasafe/hds-lib-js",
+    "hds-forms-js": "github:healthdatasafe/hds-forms-js#0.33.1",
+    "hds-lib": "github:healthdatasafe/hds-lib-js#2.53.0",
     "hds-style": "github:healthdatasafe/style-package#0.5.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
