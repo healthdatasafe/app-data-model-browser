@@ -69,7 +69,8 @@ export function ItemDetail ({ model, itemKey, onSelectStream, onSelectEventType,
           <select
             value={lang}
             onChange={e => setLang(e.target.value)}
-            className='rounded border border-border bg-background text-foreground px-2 py-1 text-sm'
+            aria-label='Language'
+            className='rounded border border-border bg-background text-foreground py-1 pl-2 pr-8 text-sm'
           >
             {languages.map(l => <option key={l} value={l}>{l}</option>)}
           </select>

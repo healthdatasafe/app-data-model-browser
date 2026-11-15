@@ -17,7 +17,8 @@ interface SplitPaneProps {
  * The left pane has a controlled width (px); the right pane fills the rest.
  * Width persists in localStorage under `splitpane:<storageKey>`.
  *
- * Layout: flex row at all viewport widths (this is a desktop-first developer tool).
+ * Layout: a row with the handle from the `md` breakpoint up; below it the panes stack (list above detail) and the
+ * handle is hidden, so a phone gets a full-width detail instead of a one-word column (B-2026-11-15-2).
  */
 export function SplitPane ({
   storageKey,
@@ -59,8 +60,8 @@ export function SplitPane ({
   }, [width, dragging, storageKey]);
 
   return (
-    <div ref={containerRef} className={`flex flex-row ${className}`}>
-      <div style={{ width, flex: '0 0 auto' }}>
+    <div ref={containerRef} className={`flex flex-col md:flex-row ${className}`} style={{ '--split-w': `${width}px` } as React.CSSProperties}>
+      <div className='w-full md:w-[var(--split-w)] md:flex-none'>
         {left}
       </div>
       <div
@@ -68,7 +69,7 @@ export function SplitPane ({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className={`flex items-center justify-center w-2 cursor-col-resize select-none shrink-0 group ${
+        className={`hidden md:flex items-center justify-center w-2 cursor-col-resize select-none shrink-0 group ${
           dragging ? 'bg-primary/20' : 'hover:bg-accent'
         }`}
         role='separator'
@@ -77,7 +78,7 @@ export function SplitPane ({
       >
         <div className={`h-8 w-0.5 rounded ${dragging ? 'bg-primary' : 'bg-border group-hover:bg-primary'}`} />
       </div>
-      <div className='flex-1 min-w-0'>{right}</div>
+      <div className='mt-4 flex-1 min-w-0 md:mt-0'>{right}</div>
     </div>
   );
 }

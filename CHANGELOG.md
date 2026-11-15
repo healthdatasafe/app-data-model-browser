@@ -13,8 +13,17 @@
   `rounded-lg` 1rem; was 0.75rem / Tailwind defaults). Text in Inter (`font-sans` is Inter now), titles stay Inter
   Tight; the body's own Inter rule is dropped (the theme default). Dark primary is lighter, with dark text on it
   (0.5.0, AA).
+- **hds-forms-js and hds-lib pinned** (2026-11-15, B-2026-11-15-12, 0.2.2): `#0.33.1` and `#2.53.0` (were unpinned,
+  locked at 0.20.0 and 2.8.0; pryv 3.19.0, one copy of each).
 
 ### Fixed
+
+- **Contrast, a label and the phone layout** (2026-11-15, B-2026-11-15-2, 0.2.2): the item picker's count badges are
+  readable with hds-forms-js 0.33.1 (8.3:1 light, 6.9:1 dark; were 3.9 and 2.9). The app's own `primary-*` overrides
+  (22% primary under primary text, 3.6:1 on the selected row) are dropped: hds-style's palette-aware shades give
+  9.5:1 light and 11.5:1 dark. The item's language `<select>` has an accessible name and room for its chevron. Below
+  the `md` breakpoint the split panes stack (list above detail, no resize handle), so a 390 px phone no longer scrolls
+  sideways.
 
 - **A deploy waits until the site serves it** (2026-11-08, B-2026-11-06-12): `scripts/deploy.sh` used to report success once
   the Pages branch was pushed, even when GitHub's own Pages deploy then failed and the previous build kept serving.
