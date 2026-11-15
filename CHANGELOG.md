@@ -6,6 +6,14 @@
 
 - **CI** (2026-10-08): GitHub Actions workflow `.github/workflows/ci.yml` runs `npm ci`, lint, typecheck, test and build on Node 24.x for every pull request and every push to `main`. All five were run on a clean clone with no credentials first; no gate is left out.
 
+### Changed
+
+- **hds-style 0.5.1** (from 0.2.5, 2026-11-15, plan 121): the app's copy of the `@theme` colour map is replaced by
+  `hds-style/css/tailwind-map.css`, which also brings the shared radii (`rounded` 1rem, `rounded-md` 0.75rem,
+  `rounded-lg` 1rem; was 0.75rem / Tailwind defaults). Text in Inter (`font-sans` is Inter now), titles stay Inter
+  Tight; the body's own Inter rule is dropped (the theme default). Dark primary is lighter, with dark text on it
+  (0.5.0, AA).
+
 ### Fixed
 
 - **A deploy waits until the site serves it** (2026-11-08, B-2026-11-06-12): `scripts/deploy.sh` used to report success once
