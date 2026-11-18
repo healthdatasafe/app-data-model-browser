@@ -19,7 +19,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:change": "eslint $(git diff --name-only HEAD | grep -E '\\.(ts|tsx)$' | xargs)",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "license": "source-licenser -c .licenser.yml ."
   },
   "dependencies": {
     "hds-forms-js": "github:healthdatasafe/hds-forms-js#0.33.1",
@@ -43,6 +44,7 @@
     "globals": "^15.9.0",
     "jsdom": "^28.0.0",
     "neostandard": "^0.12.2",
+    "source-licenser": "^2.0.6",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
@@ -58,5 +60,6 @@
     "github:healthdatasafe/hds-forms-js": true,
     "github:healthdatasafe/hds-lib-js": true,
     "github:perki/backloop.dev-node": true
-  }
+  },
+  "author": "Health Data Safe (https://www.healthdatasafe.org)"
 }

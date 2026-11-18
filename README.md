@@ -109,3 +109,7 @@ The deploy script:
 3. Writes `dist/version.json` (commit SHA + build date)
 4. Touches `dist/.nojekyll` so GitHub Pages serves Vite assets
 5. Commits + pushes `dist/` (a `gh-pages` checkout)
+
+## License
+
+[BSD-3-Clause](LICENSE)
