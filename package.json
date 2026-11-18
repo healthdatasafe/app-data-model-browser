@@ -2,6 +2,7 @@
   "name": "app-data-model-browser",
   "private": true,
   "version": "0.2.2",
+  "license": "BSD-3-Clause",
   "type": "module",
   "engines": {
     "node": ">=24"
