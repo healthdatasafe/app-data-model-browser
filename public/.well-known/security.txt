@@ -1,0 +1,4 @@
+Contact: mailto:contact@healthdatasafe.org
+Expires: 2027-08-10T00:00:00.000Z
+Preferred-Languages: en, fr
+Canonical: https://www.healthdatasafe.org/.well-known/security.txt
