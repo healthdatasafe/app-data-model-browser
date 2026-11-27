@@ -74,6 +74,10 @@ export default function App () {
             {model.modelUrl} — {model.itemsDefs.getAllActive().length} items, {model.modelData.streams?.length ?? 0} root streams, {eventTypesCount} eventTypes
           </div>
         </div>
+        {/* the licences of the open-source code the app is built with (plan 132 P3), written by vite.config.ts */}
+        <a href='./THIRD-PARTY-NOTICES.txt' target='_blank' rel='noopener noreferrer' className='ml-auto shrink-0 text-xs text-muted-foreground underline underline-offset-2'>
+          Open-source software in this app
+        </a>
       </header>
       <Tabs<TabId>
         tabs={[

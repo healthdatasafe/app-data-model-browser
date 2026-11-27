@@ -4,6 +4,9 @@
 
 ### Added
 
+- **Third-party notices and security.txt** (2026-11-27, plan 132 P3): the build writes `THIRD-PARTY-NOTICES.txt`
+  (every bundled package with its licence texts; pryv's, which its npm packages do not ship, from `licenses/`), linked
+  from the header as "Open-source software in this app"; `public/.well-known/security.txt` as on www.healthdatasafe.org.
 - **CI** (2026-10-08): GitHub Actions workflow `.github/workflows/ci.yml` runs `npm ci`, lint, typecheck, test and build on Node 24.x for every pull request and every push to `main`. All five were run on a clean clone with no credentials first; no gate is left out.
 
 ### Changed
